@@ -7,16 +7,13 @@ services:
     ports:
       - 6379:6379
   node-app:
+    build: .
     container_name: node-app
     restart: always
-    image: node:alpine
     volumes:
-        - ./:/usr/src/app:cached
-        - ./node_modules:/usr/src/app/node_modules:cached
-    working_dir: /usr/src/app
-    command: sh -c "npm i && npm start"
+        - ./:/usr/app
+        - /app/node_modules
     ports:
       - 8080:8080
     links:
       - redis-server
-  
